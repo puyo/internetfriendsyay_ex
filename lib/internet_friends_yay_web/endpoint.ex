@@ -1,12 +1,12 @@
 defmodule InternetFriendsYayWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :internetfriendsyay
+  use Phoenix.Endpoint, otp_app: :internet_friends_yay
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_internetfriendsyay_key",
+    key: "_internet_friends_yay_key",
     signing_salt: "5JAyZ7LW"
   ]
 
@@ -18,7 +18,7 @@ defmodule InternetFriendsYayWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :internetfriendsyay,
+    from: :internet_friends_yay,
     gzip: false,
     only: ~w(assets fonts images favicon.ico robots.txt)
 
@@ -28,7 +28,7 @@ defmodule InternetFriendsYayWeb.Endpoint do
     socket "/phoenix/live_reload/socket", Phoenix.LiveReloader.Socket
     plug Phoenix.LiveReloader
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :internetfriendsyay
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :internet_friends_yay
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,

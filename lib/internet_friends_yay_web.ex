@@ -30,7 +30,7 @@ defmodule InternetFriendsYayWeb do
   def view do
     quote do
       use Phoenix.View,
-        root: "lib/internetfriendsyay_web/templates",
+        root: "lib/internet_friends_yay_web/templates",
         namespace: InternetFriendsYayWeb
 
       # Import convenience functions from controllers

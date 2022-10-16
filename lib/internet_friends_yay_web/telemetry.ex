@@ -31,23 +31,23 @@ defmodule InternetFriendsYayWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("internetfriendsyay.repo.query.total_time",
+      summary("internet_friends_yay.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("internetfriendsyay.repo.query.decode_time",
+      summary("internet_friends_yay.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("internetfriendsyay.repo.query.query_time",
+      summary("internet_friends_yay.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("internetfriendsyay.repo.query.queue_time",
+      summary("internet_friends_yay.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("internetfriendsyay.repo.query.idle_time",
+      summary("internet_friends_yay.repo.query.idle_time",
         unit: {:native, :millisecond},
         description:
           "The time the connection spent waiting before being checked out for the query"

@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :internetfriendsyay,
+config :internet_friends_yay,
   ecto_repos: [InternetFriendsYay.Repo],
   rails_tz_mapping: %{
     "International Date Line West" => "Etc/GMT+12",
@@ -164,7 +164,7 @@ config :internetfriendsyay,
   }
 
 # Configures the endpoint
-config :internetfriendsyay, InternetFriendsYayWeb.Endpoint,
+config :internet_friends_yay, InternetFriendsYayWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: InternetFriendsYayWeb.ErrorView, accepts: ~w(html json), layout: false],
   pubsub_server: InternetFriendsYay.PubSub,
@@ -177,7 +177,7 @@ config :internetfriendsyay, InternetFriendsYayWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :internetfriendsyay, InternetFriendsYay.Mailer, adapter: Swoosh.Adapters.Local
+config :internet_friends_yay, InternetFriendsYay.Mailer, adapter: Swoosh.Adapters.Local
 
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false

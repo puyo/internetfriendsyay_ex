@@ -20,5 +20,5 @@ defmodule InternetFriendsYayWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :internetfriendsyay
+  use Gettext, otp_app: :internet_friends_yay
 end
