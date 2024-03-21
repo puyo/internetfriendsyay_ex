@@ -1,18 +1,13 @@
 # InternetFriendsYay
 
-To start your Phoenix server:
+Elixir LiveView version
 
-  * Run `mix setup` to install and setup dependencies
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+## Design Ideas
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix
+- https://slidesgo.com/theme/cute-lovely-interface
+- https://www.pinterest.com.au/pin/272256739965877423/
+- https://i.pinimg.com/originals/a7/65/1c/a7651ce298ce1364280a215bd940deac.jpg
+- https://www.webdesignhot.com/cute-elements-design-vector-set-01h98868rcphxh9jxfcjbftvz5
+- https://www.freepik.com/premium-vector/set-kawaii-doodles-cute-stickers-fashion-patches_5059645.htm
+- https://www.alamy.com/stock-photo-adorable-concept-one-page-website-design-template-with-cute-animals-127466569.html
+- https://www.behance.net/gallery/91146147/Kawaii-Website-Banner-Illustration
