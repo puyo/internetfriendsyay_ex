@@ -19,15 +19,15 @@ defmodule InternetFriendsYayWeb.ConnCase do
 
   using do
     quote do
+      # The default endpoint for testing
+      @endpoint InternetFriendsYayWeb.Endpoint
+
+      use InternetFriendsYayWeb, :verified_routes
+
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
       import InternetFriendsYayWeb.ConnCase
-
-      alias InternetFriendsYayWeb.Router.Helpers, as: Routes
-
-      # The default endpoint for testing
-      @endpoint InternetFriendsYayWeb.Endpoint
     end
   end
 
