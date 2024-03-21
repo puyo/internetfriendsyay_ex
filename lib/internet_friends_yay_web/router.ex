@@ -18,6 +18,13 @@ defmodule InternetFriendsYayWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/schedules", ScheduleLive.Index, :index
+    live "/schedules/new", ScheduleLive.Index, :new
+    live "/schedules/:id/edit", ScheduleLive.Index, :edit
+
+    live "/schedules/:id", ScheduleLive.Show, :show
+    live "/schedules/:id/show/edit", ScheduleLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

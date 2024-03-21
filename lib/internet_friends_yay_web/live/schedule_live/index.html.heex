@@ -1,0 +1,41 @@
+<.header>
+  Listing Schedules
+  <:actions>
+    <.link patch={~p"/schedules/new"}>
+      <.button>New Schedule</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="schedules"
+  rows={@schedules}
+  row_click={fn schedule -> JS.navigate(~p"/schedules/#{schedule.uuid}") end}
+>
+  <:col :let={schedule} label="uuid"><%= schedule.uuid %></:col>
+  <:action :let={schedule}>
+    <div class="sr-only">
+      <.link navigate={~p"/schedules/#{schedule}"}>Show</.link>
+    </div>
+    <.link patch={~p"/schedules/#{schedule}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={schedule}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: schedule.id}) |> hide("##{schedule.id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="schedule-modal" show on_cancel={JS.patch(~p"/schedules")}>
+  <.live_component
+    module={InternetFriendsYayWeb.ScheduleLive.FormComponent}
+    id={@schedule.id || :new}
+    title={@page_title}
+    action={@live_action}
+    schedule={@schedule}
+    patch={~p"/schedules"}
+  />
+</.modal>
