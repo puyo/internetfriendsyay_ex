@@ -44,23 +44,18 @@ defmodule InternetFriendsYay.Schedule do
 
   @spec people_at_indexes(list(Db.Person.t()), DateTime.t()) :: any()
   def people_at_indexes(people, at) do
-    availability =
-      availability(people, at)
-      |> IO.inspect()
+    availability = availability(people, at)
 
     @indexes
     |> Enum.map(fn index ->
       available_people =
         people
-        |> Stream.map(fn person ->
-          %{available_indexes: available_indexes, offset: offset} =
-            Map.get(availability, person.id)
-
-          local_index = rem(index + offset, @indexes_per_week)
-          available = Map.get(available_indexes, local_index) == true
+        |> Enum.map(fn person ->
+          available_indexes = Map.get(availability, person.id)
+          available = Map.get(available_indexes, index) == true
           {person, available}
         end)
-        |> Stream.filter(fn {_person, available} ->
+        |> Enum.filter(fn {_person, available} ->
           available
         end)
         |> Enum.map(fn {person, _available} ->
@@ -75,15 +70,15 @@ defmodule InternetFriendsYay.Schedule do
     |> Enum.into(%{})
   end
 
+  @spec availability([Db.Person.t()], DateTime.t()) :: %{integer() => %{integer() => boolean()}}
   def availability(people, at) do
     people
     |> Enum.map(fn person ->
+      offset = location_offset(person_location(person), at)
+
       {
         person.id,
-        %{
-          offset: location_offset(person_location(person), at),
-          available_indexes: person_available_indexes(person)
-        }
+        person_available_indexes(person, offset)
       }
     end)
     |> Enum.into(%{})
@@ -91,28 +86,30 @@ defmodule InternetFriendsYay.Schedule do
 
   @spec location_offset(binary(), DateTime.t()) :: integer()
   def location_offset(location, at) do
-    # utc_offset is in seconds
+    # utc_offset is in seconds based roughly on lat
+    # std_offset is the extra offset from DST
     at_local = at |> DateTime.shift_zone!(location)
-    div(at_local.utc_offset, @seconds_per_index)
+    div(at_local.utc_offset + at_local.std_offset, @seconds_per_index)
   end
 
   def person_location(person) do
-    Map.get(rails_tz_mapping(), person.timezone)
+    Map.fetch!(rails_tz_mapping(), person.timezone)
   end
 
-  def person_available_indexes(person) do
-    useful_byte_count = div(@indexes_per_week, 8)
-    <<useful_bytes::binary-size(useful_byte_count), _::binary>> = person.data
-    bits = for <<x::1 <- useful_bytes>>, do: x
+  @spec person_available_indexes(%{:data => bitstring()}, integer()) :: %{integer() => boolean()}
+  def person_available_indexes(person, offset) do
+    bytes = for <<x::8 <- person.data>>, do: x
 
-    bits
-    |> Stream.with_index()
-    |> Stream.filter(fn {bit, _} ->
-      bit == 1
+    @indexes
+    |> Enum.map(fn index ->
+      byte_index = div(index, 8)
+      bit_index = rem(index, 8)
+      byte = Enum.at(bytes, byte_index)
+      bit = byte |> Bitwise.>>>(bit_index) |> Bitwise.&&&(1)
+      offset_index = rem(index - offset, @indexes_per_week)
+      {offset_index, bit == 1}
     end)
-    |> Stream.map(fn {_bit, index} ->
-      {index, true}
-    end)
+    |> Enum.filter(fn {_index, available} -> available end)
     |> Enum.into(%{})
   end
 

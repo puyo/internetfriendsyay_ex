@@ -1,7 +1,10 @@
 <section class="schedule">
   <ul class="people">
     <%= for {person, index} <- Enum.with_index(@people) do %>
-      <li><.person_chip people_colours={@people_colours} person={person} /></li>
+      <li>
+        <.person_chip people_colours={@people_colours} person={person} />
+        <%= person.timezone %>
+      </li>
     <% end %>
   </ul>
 
