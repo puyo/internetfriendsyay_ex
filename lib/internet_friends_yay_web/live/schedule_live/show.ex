@@ -19,12 +19,12 @@ defmodule InternetFriendsYayWeb.ScheduleLive.Show do
     people = schedule.people |> Enum.sort_by(fn p -> p.name end)
     at = DateTime.utc_now()
     people_at_indexes = Schedule.people_at_indexes(people, at)
-    people_length = length(people)
+    people_count = length(people)
 
     people_colours =
       Enum.with_index(people)
       |> Enum.map(fn {person, index} ->
-        {person.id, hue(index, people_length)}
+        {person.id, hue(index, people_count)}
       end)
       |> Enum.into(%{})
 
@@ -37,6 +37,7 @@ defmodule InternetFriendsYayWeb.ScheduleLive.Show do
       |> assign(:people, people)
       |> assign(:people_colours, people_colours)
       |> assign(:people_at_indexes, people_at_indexes)
+      |> assign(:people_count, people_count)
     }
   end
 
