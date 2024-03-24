@@ -1,22 +1,35 @@
-<.header>
-  Schedule <%= @schedule.id %>
-  <:subtitle>This is a schedule record from your database.</:subtitle>
-  <:actions>
-    <.link patch={~p"/schedules/#{@schedule}/show/edit"} phx-click={JS.push_focus()}>
-      <.button>Edit schedule</.button>
-    </.link>
-  </:actions>
-</.header>
+<section class="schedule">
+  <ul class="people">
+    <%= for {person, index} <- Enum.with_index(@people) do %>
+      <li><.person_chip people_colours={@people_colours} person={person} /></li>
+    <% end %>
+  </ul>
 
-<.back navigate={~p"/schedules"}>Back to schedules</.back>
-
-<.modal :if={@live_action == :edit} id="schedule-modal" show on_cancel={JS.patch(~p"/schedules/#{@schedule}")}>
-  <.live_component
-    module={InternetFriendsYayWeb.ScheduleLive.FormComponent}
-    id={@schedule.id}
-    title={@page_title}
-    action={@live_action}
-    schedule={@schedule}
-    patch={~p"/schedules/#{@schedule}"}
-  />
-</.modal>
+  <table>
+    <thead>
+      <tr>
+        <th></th>
+        <%= for name <- InternetFriendsYay.Schedule.day_names() do %>
+          <th>
+            <%= name %>
+          </th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <%= for %{time: time, index: index_in_day} <- InternetFriendsYay.Schedule.times_of_day() do %>
+        <tr>
+          <th><%= Calendar.strftime(time, "%I:%M %p") %></th>
+          <%= for index <- InternetFriendsYay.Schedule.indexes(index_in_day) do %>
+            <% people_at_this_index = @people_at_indexes[index] %>
+            <td>
+              <%= for person <- (people_at_this_index || []) do %>
+                <.person_chip people_colours={@people_colours} person={person} />
+              <% end %>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</section>

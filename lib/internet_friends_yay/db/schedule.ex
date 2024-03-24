@@ -6,8 +6,8 @@ defmodule InternetFriendsYay.Db.Schedule do
   use Ecto.Schema
 
   schema "schedules" do
-    field(:uuid, Ecto.UUID)
-    has_many(:people, InternetFriendsYay.Db.Person)
+    field :uuid, Ecto.UUID
+    has_many :people, InternetFriendsYay.Db.Person
     timestamps()
   end
 

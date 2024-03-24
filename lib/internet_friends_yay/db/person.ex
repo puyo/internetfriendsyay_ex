@@ -6,11 +6,11 @@ defmodule InternetFriendsYay.Db.Person do
   use Ecto.Schema
 
   schema "people" do
-    field(:name, :string)
-    field(:timezone, :string)
-    field(:data, :binary)
-    field(:bits, :binary)
-    belongs_to(:schedule, InternetFriendsYay.Db.Schedule)
+    field :name, :string
+    field :timezone, :string
+    field :data, :binary
+    field :bits, :binary
+    belongs_to :schedule, InternetFriendsYay.Db.Schedule
     timestamps()
   end
 

@@ -1,8 +1,6 @@
 defmodule InternetFriendsYayWeb.ScheduleLive.FormComponent do
   use InternetFriendsYayWeb, :live_component
 
-  alias InternetFriendsYay.App
-
   @impl true
   def render(assigns) do
     ~H"""
@@ -19,7 +17,6 @@ defmodule InternetFriendsYayWeb.ScheduleLive.FormComponent do
         phx-change="validate"
         phx-submit="save"
       >
-
         <:actions>
           <.button phx-disable-with="Saving...">Save Schedule</.button>
         </:actions>
@@ -30,19 +27,21 @@ defmodule InternetFriendsYayWeb.ScheduleLive.FormComponent do
 
   @impl true
   def update(%{schedule: schedule} = assigns, socket) do
-    changeset = App.change_schedule(schedule)
+    # changeset = App.change_schedule(schedule)
 
-    {:ok,
-     socket
-     |> assign(assigns)
-     |> assign_form(changeset)}
+    {
+      :ok,
+      socket
+      |> assign(assigns)
+      # |> assign_form(changeset)
+    }
   end
 
   @impl true
   def handle_event("validate", %{"schedule" => schedule_params}, socket) do
     changeset =
       socket.assigns.schedule
-      |> App.change_schedule(schedule_params)
+      # |> App.change_schedule(schedule_params)
       |> Map.put(:action, :validate)
 
     {:noreply, assign_form(socket, changeset)}

@@ -3,3 +3,71 @@
 @import "tailwindcss/utilities";
 
 /* This file is for your main application CSS */
+
+:root {
+  --odd-row-bg-color: hsl(0, 0%, 97%);
+  --even-row-bg-color: hsl(0, 0%, 100%);
+}
+
+.people {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+
+  & li {
+    list-style: none;
+    display: inline-block;
+  }
+}
+
+.chip {
+  display: inline-block;
+  padding: 0px 3px;
+  border-radius: 3px;
+  font-size: 0.60rem;
+  font-family: "Arial", "Arial", sans-serif;
+  background-color: lightgray;
+}
+
+.schedule {
+  & table {
+    border-collapse: separate;
+    border-spacing: 1px;
+    font-size: 0.75rem;
+  }
+
+  & thead tr {
+    position: sticky;
+    top: 0;
+    background-color: white;
+  }
+
+  & th {
+    white-space: nowrap;
+  }
+
+  & tbody {
+    & th {
+      vertical-align: top;
+      font-weight: normal;
+    }
+
+    & td {
+      vertical-align: top;
+    }
+
+    tr:nth-child(4n + 1), tr:nth-child(4n + 2) {
+      & td, & th {
+        background-color: var(--odd-row-bg-color);
+      }
+    }
+
+    tr:nth-child(4n), tr:nth-child(4n + 3)   {
+      & td, & th {
+        background-color: var(--even-row-bg-color);
+      }
+    }
+  }
+}
+
