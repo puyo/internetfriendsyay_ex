@@ -46,7 +46,7 @@ defmodule InternetFriendsYayWeb.ScheduleLive.Show do
 
     ~H"""
     <span class="person chip" style={["background-color: hsl(#{@hue}, 50%, 80%)"]}>
-      <%= @name %>
+      <%= @name %><%= if assigns[:extra], do: " - #{@extra}" %>
     </span>
     """
   end
