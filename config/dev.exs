@@ -3,8 +3,8 @@ import Config
 # Configure your database
 config :internet_friends_yay, InternetFriendsYay.Repo,
   username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  # postgresql 16
+  port: 5434,
   database: "internet_friends_yay_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
