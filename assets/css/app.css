@@ -2,11 +2,9 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-/* This file is for your main application CSS */
-
 :root {
-  --odd-row-bg-color: hsl(0, 0%, 97%);
-  --even-row-bg-color: hsl(0, 0%, 100%);
+  --odd-row-bg-color: hsl(0, 10%, 97%);
+  --even-row-bg-color: hsl(0, 10%, 100%);
 }
 
 .people {
@@ -20,7 +18,7 @@
   display: inline-block;
   padding: 0px 3px;
   border-radius: 3px;
-  font-size: 0.60rem;
+  font-size: 0.6rem;
   font-family: "Arial", "Arial", sans-serif;
   background-color: lightgray;
 }
@@ -52,17 +50,20 @@
       vertical-align: top;
     }
 
-    tr:nth-child(4n + 1), tr:nth-child(4n + 2) {
-      & td, & th {
+    tr:nth-child(4n + 1),
+    tr:nth-child(4n + 2) {
+      & td,
+      & th {
         background-color: var(--odd-row-bg-color);
       }
     }
 
-    tr:nth-child(4n), tr:nth-child(4n + 3)   {
-      & td, & th {
+    tr:nth-child(4n),
+    tr:nth-child(4n + 3) {
+      & td,
+      & th {
         background-color: var(--even-row-bg-color);
       }
     }
   }
 }
-
