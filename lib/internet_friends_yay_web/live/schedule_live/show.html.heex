@@ -24,13 +24,14 @@
             <% people = @people_at_indexes[index] || [] %>
             <% people_here_count = length(people) %>
 
-            <%
-              style = if people_here_count < 2 do
+            <% style =
+              if people_here_count < 2 do
                 []
               else
-                ["background-color: hsl(0, 80%, #{100 - people_here_count*25/@people_count}%)"]
-              end
-            %>
+                [
+                  "background-color: hsl(0, 80%, #{100 - people_here_count * 25 / @people_count}%)"
+                ]
+              end %>
 
             <td style={style}>
               <%= for person <- people do %>
