@@ -7,8 +7,9 @@ import Config
 # Run `mix help test` for more information.
 config :internet_friends_yay, InternetFriendsYay.Repo,
   username: "postgres",
-  password: "postgres",
-  hostname: "localhost",
+  # password: "postgres",
+  # hostname: "localhost",
+  port: 5434,
   database: "internet_friends_yay_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
   pool_size: System.schedulers_online() * 2

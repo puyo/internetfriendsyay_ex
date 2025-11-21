@@ -1,8 +1,7 @@
 defmodule InternetFriendsYayWeb.ScheduleLive.Show do
   use InternetFriendsYayWeb, :live_view
 
-  alias InternetFriendsYay.{Db, Repo, Schedule}
-  import Ecto.Query
+  alias InternetFriendsYay.Schedule
 
   @impl true
   def mount(_params, _session, socket) do
