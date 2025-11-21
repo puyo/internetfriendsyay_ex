@@ -17,13 +17,13 @@ config :internet_friends_yay, InternetFriendsYay.Repo,
 # you can enable the server option below.
 config :internet_friends_yay, InternetFriendsYayWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "BdRX3t8HzfHbrwL4gseh0KFGF09vnySgi/Lj7RZPuRhX2jGgqnE32rKVzUJqIWz0",
+  secret_key_base: "0IPxjvXDjDFDINfWy7bZjAwUMCke2fXOlLjWsb0JFRUM7iOBHMalkJDUWTWdP0iz",
   server: false
 
-# In test we don't send emails.
+# In test we don't send emails
 config :internet_friends_yay, InternetFriendsYay.Mailer, adapter: Swoosh.Adapters.Test
 
-# Disable swoosh api client as it is only required for production adapters.
+# Disable swoosh api client as it is only required for production adapters
 config :swoosh, :api_client, false
 
 # Print only warnings and errors during test
@@ -31,3 +31,7 @@ config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+# Enable helpful, but potentially expensive runtime checks
+config :phoenix_live_view,
+  enable_expensive_runtime_checks: true

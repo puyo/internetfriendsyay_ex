@@ -6,21 +6,21 @@ defmodule InternetFriendsYayWeb.ScheduleLive.FormComponent do
     ~H"""
     <div>
       <.header>
-        <%= @title %>
+        {@title}
         <:subtitle>Use this form to manage schedule records in your database.</:subtitle>
       </.header>
 
-      <.simple_form
-        for={@form}
-        id="schedule-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <:actions>
-          <.button phx-disable-with="Saving...">Save Schedule</.button>
-        </:actions>
-      </.simple_form>
+      <%!-- <.simple_form --%>
+      <%!--   for={@form} --%>
+      <%!--   id="schedule-form" --%>
+      <%!--   phx-target={@myself} --%>
+      <%!--   phx-change="validate" --%>
+      <%!--   phx-submit="save" --%>
+      <%!-- > --%>
+      <%!--   <:actions> --%>
+      <%!--     <.button phx-disable-with="Saving...">Save Schedule</.button> --%>
+      <%!--   </:actions> --%>
+      <%!-- </.simple_form> --%>
     </div>
     """
   end

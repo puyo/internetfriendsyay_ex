@@ -13,8 +13,6 @@ defmodule InternetFriendsYay.Application do
       {DNSCluster,
        query: Application.get_env(:internet_friends_yay, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: InternetFriendsYay.PubSub},
-      # Start the Finch HTTP client for sending emails
-      {Finch, name: InternetFriendsYay.Finch},
       # Start a worker by calling: InternetFriendsYay.Worker.start_link(arg)
       # {InternetFriendsYay.Worker, arg},
       # Start to serve requests, typically the last entry

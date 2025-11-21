@@ -11,7 +11,7 @@
         <th></th>
         <%= for name <- InternetFriendsYay.Schedule.day_names() do %>
           <th>
-            <%= name %>
+            {name}
           </th>
         <% end %>
       </tr>
@@ -19,7 +19,7 @@
     <tbody>
       <%= for %{time: time, index: index_in_day} <- InternetFriendsYay.Schedule.times_of_day() do %>
         <tr>
-          <th><%= Calendar.strftime(time, "%I:%M %p") %></th>
+          <th>{Calendar.strftime(time, "%I:%M %p")}</th>
           <%= for index <- InternetFriendsYay.Schedule.indexes(index_in_day) do %>
             <% people = @people_at_indexes[index] || [] %>
             <% people_here_count = length(people) %>

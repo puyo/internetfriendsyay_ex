@@ -175,7 +175,7 @@ config :internet_friends_yay, InternetFriendsYayWeb.Endpoint,
     layout: false
   ],
   pubsub_server: InternetFriendsYay.PubSub,
-  live_view: [signing_salt: "1jD1OQhn"]
+  live_view: [signing_salt: "Q7DeVUxI"]
 
 # Configures the mailer
 #
@@ -188,28 +188,16 @@ config :internet_friends_yay, InternetFriendsYay.Mailer, adapter: Swoosh.Adapter
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.17.11",
+  version: "0.25.4",
   internet_friends_yay: [
     args:
-      ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
+      ~w(js/app.js --bundle --target=es2022 --outdir=../priv/static/assets --external:/fonts/* --external:/images/* --alias:@=.),
     cd: Path.expand("../assets", __DIR__),
-    env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
-  ]
-
-# Configure tailwind (the version is required)
-config :tailwind,
-  version: "3.4.0",
-  internet_friends_yay: [
-    args: ~w(
-      --config=tailwind.config.js
-      --input=css/app.css
-      --output=../priv/static/assets/app.css
-    ),
-    cd: Path.expand("../assets", __DIR__)
+    env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
   ]
 
 # Configures Elixir's Logger
-config :logger, :console,
+config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
