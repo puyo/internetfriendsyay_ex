@@ -9,9 +9,7 @@ defmodule InternetFriendsYay.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
-      compilers: [:phoenix_live_view] ++ Mix.compilers(),
-      listeners: [Phoenix.CodeReloader]
+      deps: deps()
     ]
   end
 
@@ -26,9 +24,7 @@ defmodule InternetFriendsYay.MixProject do
   end
 
   def cli do
-    [
-      preferred_envs: [precommit: :test, "test.watch": :test]
-    ]
+    [preferred_cli_env: ["test.watch": :test]]
   end
 
   # Specifies which paths to compile per environment.
@@ -46,18 +42,18 @@ defmodule InternetFriendsYay.MixProject do
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 4.1"},
       {:phoenix_live_reload, "~> 1.2", only: :dev},
-      {:phoenix_live_view, "~> 1.1.0"},
-      {:lazy_html, ">= 0.1.0", only: :test},
+      {:phoenix_live_view, "~> 1.1"},
+      {:floki, ">= 0.30.0", only: :test},
       {:phoenix_live_dashboard, "~> 0.8.3"},
-      {:esbuild, "~> 0.10", runtime: Mix.env() == :dev},
-      {:swoosh, "~> 1.16"},
-      {:req, "~> 0.5"},
+      {:esbuild, "~> 0.8", runtime: Mix.env() == :dev},
+      {:swoosh, "~> 1.5"},
+      {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.26"},
+      {:gettext, "~> 1.0"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
-      {:bandit, "~> 1.5"},
+      {:bandit, "~> 1.8"},
       {:tzdata, "~> 1.1"},
       {:mix_test_watch, "~> 1.0", only: [:dev, :test], runtime: false}
     ]
@@ -76,12 +72,8 @@ defmodule InternetFriendsYay.MixProject do
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["esbuild.install --if-missing"],
-      "assets.build": ["compile", "esbuild internet_friends_yay"],
-      "assets.deploy": [
-        "esbuild internet_friends_yay --minify",
-        "phx.digest"
-      ],
-      precommit: ["compile --warning-as-errors", "deps.unlock --unused", "format", "test"]
+      "assets.build": ["esbuild internet_friends_yay"],
+      "assets.deploy": ["esbuild internet_friends_yay --minify", "phx.digest"]
     ]
   end
 end
