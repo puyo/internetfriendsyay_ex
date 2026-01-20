@@ -106,7 +106,7 @@ defmodule InternetFriendsYay.Schedule do
       bit_index = rem(index, 8)
       byte = Enum.at(bytes, byte_index)
       bit = byte |> Bitwise.>>>(bit_index) |> Bitwise.&&&(1)
-      offset_index = rem(index - offset, @indexes_per_week)
+      offset_index = rem(index - offset + @indexes_per_week, @indexes_per_week)
       {offset_index, bit == 1}
     end)
     |> Enum.filter(fn {_index, available} -> available end)
