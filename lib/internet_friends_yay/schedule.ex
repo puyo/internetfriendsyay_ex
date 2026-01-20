@@ -103,9 +103,15 @@ defmodule InternetFriendsYay.Schedule do
     @indexes
     |> Enum.map(fn index ->
       byte_index = div(index, 8)
-      bit_index = rem(index, 8)
+
+      # legacy endianness
+      bit_index = 7 - rem(index, 8)
+
       byte = Enum.at(bytes, byte_index)
       bit = byte |> Bitwise.>>>(bit_index) |> Bitwise.&&&(1)
+
+      # [index: index, byte_index: byte_index, bit_index: bit_index, byte: byte, bit: bit] |> dbg()
+
       offset_index = rem(index - offset + @indexes_per_week, @indexes_per_week)
       {offset_index, bit == 1}
     end)
