@@ -611,7 +611,7 @@ function generateScheduleTable(selectedRangeIndex = 0) {
   // Day headers
   days.forEach((day) => {
     const th = document.createElement("th");
-    th.textContent = day;
+    th.textContent = day.slice(0, 3);
     headerRow.appendChild(th);
   });
 
