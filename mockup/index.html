@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Year Bar - Fun Timeline!</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="loading-indicator" id="loading-indicator">
+      <div class="loading-spinner"></div>
+      <div class="loading-text">Loading...</div>
+    </div>
+    <div class="container" id="container">
+      <h1 class="title">Weekly Availability Heat Map</h1>
+
+      <div class="team-box peach-shadow">
+        <div class="team-list" id="team-list">
+          <!-- Team members will be generated dynamically -->
+        </div>
+
+        <div class="timezone-selector">
+          <label for="timezone-input" class="timezone-label">Time Zone:</label>
+          <div class="timezone-input-wrapper">
+            <input
+              type="text"
+              id="timezone-input"
+              class="timezone-input"
+              list="timezone-list"
+              placeholder="Time Zone"
+            />
+            <button
+              type="button"
+              class="timezone-clear"
+              id="timezone-clear"
+              aria-label="Clear time zone"
+            >
+              ×
+            </button>
+          </div>
+          <datalist id="timezone-list">
+            <!-- Time zones will be populated dynamically -->
+          </datalist>
+          <span class="timezone-error" id="timezone-error"></span>
+        </div>
+      </div>
+
+      <div class="year-bar-container">
+        <div class="year-bar" id="year-bar">
+          <!-- Segments will be generated dynamically -->
+        </div>
+        <div class="year-bar-timeline" id="year-bar-timeline">
+          <!-- Month indicators will be generated dynamically -->
+        </div>
+        <div class="selected-range-display" id="selected-range-display">
+          <!-- Selected date range will be shown here -->
+        </div>
+      </div>
+
+      <div class="schedule-container">
+        <div class="schedule-wrapper peach-shadow">
+          <table class="schedule-table" id="schedule-table">
+            <!-- Table will be generated dynamically -->
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
