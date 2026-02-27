@@ -471,7 +471,7 @@ body {
 
     tbody td {
       min-height: 20px;
-      padding: 2px;
+      padding: 4px;
       transition: all 0.2s ease;
       vertical-align: top;
       word-wrap: break-word;
