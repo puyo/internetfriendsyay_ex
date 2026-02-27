@@ -44,9 +44,9 @@ defmodule InternetFriendsYayWeb.ScheduleLive.Show do
     assigns = assign(assigns, hue: Map.get(people_colours, person.id), name: person.name)
 
     ~H"""
-    <span class="person chip" style={["background-color: hsl(#{@hue}, 50%, 80%)"]}>
+    <div class="person chip" style={["background-color: hsl(#{@hue}, 50%, 80%)"]}>
       {@name}{if assigns[:extra], do: " - #{@extra}"}
-    </span>
+    </div>
     """
   end
 

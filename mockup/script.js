@@ -10,7 +10,7 @@ const daysData = [
   ["Thursday", 4],
   ["Friday", 5],
   ["Saturday", 6],
-  ["Sunday", 0]
+  ["Sunday", 0],
 ];
 
 // Extract day names for iteration
@@ -43,52 +43,37 @@ const teamData = {
   "Yuki Tanaka": {
     timezone: "Australia/Sydney",
     schedule: {
-      Monday: [{ start: 9, end: 18 }],
-      Tuesday: [{ start: 9, end: 18 }],
-      Wednesday: [{ start: 9, end: 18 }],
-      Thursday: [{ start: 9, end: 18 }],
-      Friday: [{ start: 9, end: 17 }],
-      Saturday: [],
+      Monday: [],
+      Tuesday: [],
+      Wednesday: [],
+      Thursday: [],
+      Friday: [],
+      Saturday: [{ start: 8, end: 12 }],
       Sunday: [],
     },
   },
   "Priya Sharma": {
-    timezone: "Asia/Kolkata",
+    timezone: "Australia/Adelaide",
     schedule: {
-      Monday: [{ start: 13, end: 21 }],
-      Tuesday: [{ start: 13, end: 21 }],
-      Wednesday: [{ start: 14, end: 22 }],
-      Thursday: [{ start: 13, end: 21 }],
-      Friday: [{ start: 13, end: 20 }],
-      Saturday: [{ start: 10, end: 14 }],
-      Sunday: [],
-    },
-  },
-  "Amara Okafor": {
-    timezone: "Africa/Lagos",
-    schedule: {
-      Monday: [{ start: 8, end: 16 }],
-      Tuesday: [{ start: 8, end: 16 }],
-      Wednesday: [{ start: 8, end: 16 }],
-      Thursday: [{ start: 8, end: 16 }],
-      Friday: [{ start: 8, end: 15 }],
-      Saturday: [],
+      Monday: [],
+      Tuesday: [],
+      Wednesday: [],
+      Thursday: [],
+      Friday: [],
+      Saturday: [{ start: 8, end: 12 }],
       Sunday: [],
     },
   },
   "Diego Ramírez": {
-    timezone: "America/Los_Angeles",
+    timezone: "America/New_York",
     schedule: {
-      Monday: [
-        { start: 10, end: 14 },
-        { start: 16, end: 20 },
-      ],
-      Tuesday: [{ start: 11, end: 19 }],
-      Wednesday: [{ start: 10, end: 18 }],
-      Thursday: [{ start: 11, end: 19 }],
-      Friday: [{ start: 10, end: 16 }],
-      Saturday: [{ start: 12, end: 18 }],
-      Sunday: [{ start: 14, end: 18 }],
+      Monday: [],
+      Tuesday: [],
+      Wednesday: [],
+      Thursday: [],
+      Friday: [{ start: 3, end: 7 }],
+      Saturday: [],
+      Sunday: [],
     },
   },
 };
@@ -133,18 +118,18 @@ function interpolateColor(color1, color2, percentage) {
   const b = Math.round(b1 + (b2 - b1) * percentage);
 
   // Convert back to hex
-  return `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}${b.toString(16).padStart(2, '0')}`;
+  return `#${r.toString(16).padStart(2, "0")}${g.toString(16).padStart(2, "0")}${b.toString(16).padStart(2, "0")}`;
 }
 
 // Calculate heat map color based on availability percentage
 function getHeatMapColor(availableCount, maxCount) {
   if (availableCount === 0) {
-    return '#ffffff'; // White for 0 people
+    return "#ffffff"; // White for 0 people
   }
 
   const percentage = availableCount / maxCount;
   // Interpolate from white (#ffffff) to peach-400 (#ff9977)
-  return interpolateColor('#ffffff', '#ff9977', percentage);
+  return interpolateColor("#ffffff", "#ff9977", percentage);
 }
 
 // Check if today's date falls within a date range
@@ -200,7 +185,7 @@ function generateYearBar(ranges) {
   // Add change handlers for segment selection
   const radios = document.querySelectorAll(".segment-radio");
   radios.forEach((radio) => {
-    radio.addEventListener("change", function() {
+    radio.addEventListener("change", function () {
       const rangeIndex = parseInt(this.value);
       updateTeamTimezones(rangeIndex);
       generateScheduleTable(rangeIndex);
@@ -279,7 +264,6 @@ function observesDST(timezone) {
   return transitions.length > 0;
 }
 
-
 // Initialize DST information for all timezones
 function initializeDSTInfo() {
   const year = new Date().getFullYear();
@@ -319,9 +303,7 @@ function generateDSTBasedDateRanges() {
   });
 
   // Sort dates chronologically and remove duplicates
-  const uniqueDates = [
-    ...new Set(transitionDates.map((d) => d.getTime())),
-  ]
+  const uniqueDates = [...new Set(transitionDates.map((d) => d.getTime()))]
     .sort((a, b) => a - b)
     .map((timestamp) => new Date(timestamp));
 
@@ -440,7 +422,7 @@ function generateTeamList() {
     memberDiv.appendChild(timezoneInfo);
 
     // Add click handler to fill timezone input
-    memberDiv.addEventListener("click", function() {
+    memberDiv.addEventListener("click", function () {
       const timezone = teamData[person].timezone;
       const timezoneInput = document.getElementById("timezone-input");
 
@@ -466,9 +448,7 @@ function generateTeamList() {
 function updateTeamTimezones(dateRangeIndex = null) {
   // Get selected date range
   if (dateRangeIndex === null) {
-    const selectedRadio = document.querySelector(
-      ".segment-radio:checked",
-    );
+    const selectedRadio = document.querySelector(".segment-radio:checked");
     dateRangeIndex = selectedRadio ? parseInt(selectedRadio.value) : 0;
   }
 
@@ -497,59 +477,15 @@ function updateTeamTimezones(dateRangeIndex = null) {
   });
 }
 
-
 // Helper function to create a date at a specific time in a given timezone
-function createDateInTimezone(baseDate, hour, minute, timezone) {
-  // Get the date components in the target timezone
-  const formatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-
-  const parts = formatter.formatToParts(baseDate);
-  const year = parts.find((p) => p.type === "year").value;
-  const month = parts.find((p) => p.type === "month").value;
-  const day = parts.find((p) => p.type === "day").value;
-
-  // Create an ISO-like string (note: this is interpreted as local time)
-  const dateStr = `${year}-${month}-${day}T${String(hour).padStart(2, "0")}:${String(minute).padStart(2, "0")}:00`;
-
-  // Parse as a date, then adjust for timezone offset
-  const localDate = new Date(dateStr);
-
-  // Get the offset difference between local and target timezone
-  const localFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
-  });
-
-  const targetFormatter = new Intl.DateTimeFormat("en-US", {
-    timeZone: timezone,
-    hour: "numeric",
-    minute: "numeric",
-    hour12: false,
-  });
-
-  // Create reference date
-  const refDate = new Date(Date.UTC(2000, 0, 1, 12, 0, 0));
-  const localTime = localFormatter.format(refDate);
-  const targetTime = targetFormatter.format(refDate);
-
-  const [localH, localM] = localTime.split(":").map(Number);
-  const [targetH, targetM] = targetTime.split(":").map(Number);
-
-  const offsetMinutes = localH * 60 + localM - (targetH * 60 + targetM);
-
-  // Adjust the date
-  const adjustedDate = new Date(
-    localDate.getTime() - offsetMinutes * 60 * 1000,
+function createDateInTimezone(baseDate, hour, minute, timeZone) {
+  const str = baseDate.toLocaleString("en-US", { timeZone });
+  const result = new Date(str);
+  const offset = new Date(
+    result.getTime() + hour * 60 * 60 * 1000 + minute * 60 * 1000,
   );
-
-  return adjustedDate;
+  // console.log(offset, timezone, str, result)
+  return offset;
 }
 
 // Helper function to check if a person is available at a specific date/time
@@ -567,9 +503,7 @@ function isAvailable(person, dateTime) {
 
   const personParts = personFormatter.formatToParts(dateTime);
   const personDay = personParts.find((p) => p.type === "weekday").value;
-  const personHour = parseInt(
-    personParts.find((p) => p.type === "hour").value,
-  );
+  const personHour = parseInt(personParts.find((p) => p.type === "hour").value);
   const personMinute = parseInt(
     personParts.find((p) => p.type === "minute").value,
   );
@@ -631,10 +565,9 @@ function generateScheduleTable(selectedRangeIndex = 0) {
       timeCell.className = "time-cell";
 
       // Format time as 12-hour with AM/PM
-      const displayHour = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
-      const period = hour < 12 ? "AM" : "PM";
+      const displayHour = hour; // === 0 ? 12 : hour > 12 ? hour - 12 : hour;
       const displayMinute = minute === 0 ? "00" : minute;
-      timeCell.textContent = `${displayHour}:${displayMinute} ${period}`;
+      timeCell.textContent = `${displayHour}:${displayMinute}`;
 
       row.appendChild(timeCell);
 
@@ -660,9 +593,12 @@ function generateScheduleTable(selectedRangeIndex = 0) {
         );
 
         // Check which people are available at this time slot
-        const availablePeople = people.filter((person) =>
-          isAvailable(person, slotDate),
-        );
+        const availablePeople = people.filter((person) => {
+          if (person == "Priya Sharma" && hour == 8 && minute == 0) {
+            console.log({ baseDate, hour, minute, slotDate });
+          }
+          return isAvailable(person, slotDate);
+        });
 
         // Add available people to the cell
         availablePeople.forEach((person) => {
@@ -673,12 +609,16 @@ function generateScheduleTable(selectedRangeIndex = 0) {
         });
 
         // Apply heat map color based on percentage of available people
-        const heatColor = getHeatMapColor(availablePeople.length, people.length);
+        const heatColor = getHeatMapColor(
+          availablePeople.length,
+          people.length,
+        );
+
         cell.style.backgroundColor = heatColor;
 
         // Keep heat-0 class for empty row detection
         if (availablePeople.length === 0) {
-          cell.classList.add('heat-0');
+          cell.classList.add("heat-0");
         }
 
         row.appendChild(cell);
@@ -761,12 +701,11 @@ function initializeTimezoneSelector() {
   });
 
   // Set default to browser's time zone
-  const browserTimezone =
-    Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const browserTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   timezoneInput.value = browserTimezone;
 
   // Validate on input change and update schedule
-  timezoneInput.addEventListener("change", function() {
+  timezoneInput.addEventListener("change", function () {
     const value = this.value.trim();
     if (value && !isValidTimezone(value)) {
       timezoneError.textContent = "Invalid time zone";
@@ -780,12 +719,8 @@ function initializeTimezoneSelector() {
         displayTimezone = value;
 
         // Get current selected segment
-        const selectedRadio = document.querySelector(
-          ".segment-radio:checked",
-        );
-        const rangeIndex = selectedRadio
-          ? parseInt(selectedRadio.value)
-          : 0;
+        const selectedRadio = document.querySelector(".segment-radio:checked");
+        const rangeIndex = selectedRadio ? parseInt(selectedRadio.value) : 0;
 
         // Regenerate schedule with new timezone
         generateScheduleTable(rangeIndex);
@@ -797,7 +732,7 @@ function initializeTimezoneSelector() {
   });
 
   // Clear error on input
-  timezoneInput.addEventListener("input", function() {
+  timezoneInput.addEventListener("input", function () {
     if (timezoneError.textContent) {
       timezoneError.textContent = "";
       this.classList.remove("invalid");
@@ -805,7 +740,7 @@ function initializeTimezoneSelector() {
   });
 
   // Auto-fill first match on Enter key
-  timezoneInput.addEventListener("keydown", function(e) {
+  timezoneInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
       const value = this.value.trim().toLowerCase();
@@ -836,7 +771,7 @@ function initializeTimezoneSelector() {
     }
   }
 
-  clearButton.addEventListener("click", function() {
+  clearButton.addEventListener("click", function () {
     timezoneInput.value = "";
     timezoneError.textContent = "";
     timezoneInput.classList.remove("invalid");

@@ -18,8 +18,22 @@
     </thead>
     <tbody>
       <%= for %{time: time, index: index_in_day} <- InternetFriendsYay.Schedule.times_of_day() do %>
-        <tr>
-          <th>{Calendar.strftime(time, "%I:%M %p")}</th>
+        <%
+          num = InternetFriendsYay.Schedule.indexes(index_in_day) 
+            |> Enum.to_list()
+            |> Enum.flat_map(fn index -> @people_at_indexes[index] || [] end) 
+            |> length
+            |> dbg()
+
+          tr_class =
+            if num == 0 do
+              ["collapsed-row"]
+            else
+              []
+            end
+        %>
+        <tr class={tr_class}>
+          <th class="time-cell">{Calendar.strftime(time, "%I:%M %p")}</th>
           <%= for index <- InternetFriendsYay.Schedule.indexes(index_in_day) do %>
             <% people = @people_at_indexes[index] || [] %>
             <% people_here_count = length(people) %>
